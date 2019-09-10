@@ -1,0 +1,113 @@
+---
+title: "applyIMRMC"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+library(colorScaleStudyData)
+library(knitr)
+```
+In this file, we will apply iMRMC on the reader data from the Cardio CT color scale study.
+
+## Format the Input of doIMRMC
+The doIMRMC requires the input dataframe contain both the groud truth and reader data.For more details on using doIMRMC see <https://cran.r-project.org/web/packages/iMRMC/iMRMC.pdf>. 
+
+We need to merge both **cardioCTGroundTruth**
+
+```{r cardioCTGroundTruth, echo=FALSE}
+kable(rbind(rbind(head(cardioCTGroundTruth, n=2), data.frame(caseID = '...', truth = '...')),tail(cardioCTGroundTruth, n=2)),align = 'c')
+```
+
+and **cardioCTReaderData**
+
+```{r cardioCTReaderData, echo=FALSE}
+kable(rbind(rbind(head(cardioCTReaderData, n=2), data.frame(readerID='...', caseID = '...', modalityID = '...', confidenceScore = '...')),tail(cardioCTReaderData, n=2)),align = 'c')
+```
+
+into the format of cardioCTReaderData.
+
+First, we  reformat the ground truth data to add readerID and modalityID and change truth to numeric scores (positive = 1, negative = 0)
+
+```{r}
+gt <- cardioCTGroundTruth
+# Add new columns: readerID and modalityID
+gt$readerID <- factor("truth")
+gt$modalityID <- factor("truth")
+# Change the name and value of the truth column
+gt$truth <- as.numeric(gt$truth) - 1
+names(gt)[names(gt) == 'truth'] <- "confidenceScore"
+```
+
+Now, the formated ground truth data looks like this:
+
+```{r, echo=FALSE}
+kable(rbind(rbind(head(gt, n=2), data.frame(readerID='...', caseID = '...', modalityID = '...', confidenceScore = '...')),tail(gt, n=2)),align = 'c')
+```
+
+Then, we combine the ground truth data with the reader data
+```{r}
+combinedDf <- merge.data.frame(gt, cardioCTReaderData, by = names(cardioCTReaderData), 
+                               all = TRUE, sort = FALSE)
+# The order of the columns is as the same of the reader data and the data is not sorted
+```
+
+```{r,echo=FALSE}
+kable(rbind(rbind(head(combinedDf, n=2), data.frame(readerID='...', caseID = '...', modalityID = '...', confidenceScore = '...')),tail(combinedDf, n=2)),align = 'c') 
+```
+
+## Apply the doIMRMC
+
+```{r}
+library(iMRMC)
+result <- doIMRMC(data = combinedDf)
+#load("~/_R_code/Data package/Files for GitHub repository/result.RData")
+```
+
+In iMRMC, the AUC for different modalities (color scales) are estimated by different methods. **Ustat** present the result from an unbiased non-parametric estimation and **MLEstat** shows the maximum likelihood estimation of each parameter.
+
+```{r}
+AUCDf <- data.frame(rbind(result$MLEstat$AUCA[1:3],result$MLEstat$varAUCA[1:3], 
+                          sqrt(result$MLEstat$varAUCA[1:3])), 
+                    row.names = c("AUC", "variance of AUC", "SE of AUC"))
+names(AUCDf) <- result$MLEstat$modalityA[1:3]
+kable(AUCDf, caption = "AUC for different modalities : MLEstat", align = 'c' )
+```
+
+
+```{r}
+AUCDf <- data.frame(rbind(result$Ustat$AUCA[1:3],result$Ustat$varAUCA[1:3], 
+                          sqrt(result$Ustat$varAUCA[1:3])), 
+                    row.names = c("AUC", "variance of AUC", "SE of AUC"))
+names(AUCDf) <- result$Ustat$modalityA[1:3]
+kable(AUCDf, caption = "AUC for different modalities : Ustat", align = 'c' )
+```
+
+
+From the above tables, we can see that one of the variance estimation in the Ustat is negative. This is because this color scale study is a split-plot study but not fully crossed. That is, one reader only scored part of the cases, not all of them. 
+
+The difference of AUC among different modalities (color scales) are also estimated by the two different estimation methods. 
+
+```{r}
+AUCDf <- data.frame(rbind(result$MLEstat$AUCAminusAUCB[4:6],result$MLEstat$varAUCAminusAUCB[4:6],
+                          sqrt(result$MLEstat$varAUCAminusAUCB[4:6]), 
+              result$MLEstat$AUCAminusAUCB[4:6] - 1.96 * sqrt(result$MLEstat$varAUCAminusAUCB[4:6]),
+              result$MLEstat$AUCAminusAUCB[4:6] + 1.96 * sqrt(result$MLEstat$varAUCAminusAUCB[4:6])),
+              row.names = c("difference of AUC", "variance of difference of AUC", 
+                            "SE of different of AUC", "95% CI lower bound", "95% CI upper bound"))
+names(AUCDf) <- paste(result$MLEstat$modalityA[4:6], result$MLEstat$modalityB[4:6], sep = " vs. ")
+kable(AUCDf, caption = "Difference of AUC among different modalities : MLEstat", align = 'c' )
+```
+
+
+```{r}
+AUCDf <- data.frame(rbind(result$Ustat$AUCAminusAUCB[4:6],result$Ustat$varAUCAminusAUCB[4:6],
+                          sqrt(result$Ustat$varAUCAminusAUCB[4:6]), 
+              result$Ustat$AUCAminusAUCB[4:6] - 1.96 * sqrt(result$Ustat$varAUCAminusAUCB[4:6]),
+              result$Ustat$AUCAminusAUCB[4:6] + 1.96 * sqrt(result$Ustat$varAUCAminusAUCB[4:6])),
+              row.names = c("difference of AUC", "variance of difference of AUC", 
+                            "SE of different of AUC", "95% CI lower bound", "95% CI upper bound"))
+names(AUCDf) <- paste(result$Ustat$modalityA[4:6], result$Ustat$modalityB[4:6], sep = " vs. ")
+kable(AUCDf, caption = "Difference of AUC among different modalities : Ustat", align = 'c' )
+```

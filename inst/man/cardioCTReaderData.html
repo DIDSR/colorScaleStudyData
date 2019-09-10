@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Reader study result for the Cardiac CT study</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cardioCTReaderData {colorScaleStudyData}"><tr><td>cardioCTReaderData {colorScaleStudyData}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Reader study result for the Cardiac CT study
+</h2>
+
+<h3>Description</h3>
+
+
+<p>This reader study result was produced from the color scale study for the
+Cardiac CT images described in
+</p>
+<p><em>Zabala-Travers S, Gallas BD, Busoni S, Williams MC, Noferini L, Fedeli L,
+Lucarini S, Galastri L, Mirsadraee S, Badano A. Display colour scale
+effects on diagnostic performance and reader agreement in cardiac CT and
+prostate apparent diffusion coefficient assessment. Clinical radiology.
+2019 Jan 1;74(1):79-e1.</em>
+</p>
+<p>The study is not fully crossed. The variables are as follows:
+
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+cardioCTReaderData
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 1921 rows and 4 variables:
+</p>
+
+<dl>
+<dt>readerID</dt><dd><p>Readers(obervers) had different experience level, which
+is referenced in the reader nickname as High and Low, for high and low
+level of experience, respectively. (High1&ndash;High4, Low1&ndash;Low8)</p>
+</dd>
+<dt>caseID</dt><dd><p>ID for 210 cases, among which 105 positive for lesion (1&ndash;210)</p>
+</dd>
+<dt>modalityID</dt><dd><p>Three color scales: Grayscale, Rainbow, Hotiron(Hot).
+Grayscale was evaluated using GSDF settings and Rainbow and Hotiron using
+RGB settings. </p>
+</dd>
+<dt>confidenceScore</dt><dd><p>The score gave from the readers (0&ndash;100)</p>
+</dd>
+</dl>
+
+
+<h3>References</h3>
+
+<p><a href="https://www.ncbi.nlm.nih.gov/pubmed/30336942">https://www.ncbi.nlm.nih.gov/pubmed/30336942</a>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>colorScaleStudyData</em> version 0.0.0.9000 ]</div>
+</body></html>

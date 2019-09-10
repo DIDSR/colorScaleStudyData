@@ -1,0 +1,20 @@
+Package: colorScaleStudyData
+Title: Reader result and Groud Truth for the Color Scale Study
+Version: 0.0.0.9000
+Authors@R: c(person("Si", "Wen", email = "si.wen@fda.hhs.gov", role = "cre"),
+              person("Silvina", "Zabala-Travers", email = "s.zabala.travers@gmail.com", role = "aut"),
+              person("Brandon","Gallas", email = "Brandon.Gallas@fda.hhs.gov", role = "aut"))
+Description: The Color Scale Study repository data contains the raw data files with 
+  the individual readers answer to each case and the ground truth. 
+  For information about the methods used for this work please refer to:
+  Zabala-Travers S, Gallas BD, Busoni S, Williams MC, Noferini L, Fedeli L, Lucarini S,
+  Galastri L, Mirsadraee S, Badano A. Display colour scale effects on diagnostic performance
+  and reader agreement in cardiac CT and prostate apparent diffusion coefficient assessment. 
+  Clinical radiology. 2019 Jan 1;74(1):79-e1.
+  We kindly request you to cite this article if data from this repository is used for your 
+  research.
+Depends: R (>= 3.5.2)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
