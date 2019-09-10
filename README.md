@@ -1,6 +1,6 @@
 # colorScaleStudyData
 
-The [Color Scale Study repository](https://github.com/DIDSR/RDataPackages/tree/master/colorScaleStudyData) contains the raw data files with the individual readers answer to each case and the ground truth. For information about the methods used for this work please refer to:
+The [Color Scale Study repository](https://github.com/DIDSR/colorScaleStudyData) contains the raw data files with the individual readers answer to each case and the ground truth. For information about the methods used for this work please refer to:
 
 * _Citation_: __Zabala-Travers S, Gallas BD, Busoni S, Williams MC, Noferini L, Fedeli L, Lucarini S, Galastri L, Mirsadraee S, Badano A. [Display colour scale effects on diagnostic performance and reader agreement in cardiac CT and prostate apparent diffusion coefficient assessment](https://www.ncbi.nlm.nih.gov/pubmed/30336942). Clinical radiology. 2019 Jan 1;74(1):79-e1.__
 
@@ -33,13 +33,13 @@ Data is divided in 4 files. Two files for the study with __Cardiac CT images__ a
 
 
 ### 1. Cardiac CT study
-* __[Cardio Study_truth.csv](https://github.com/DIDSR/RDataPackages/releases/download/v0.0.0.9000/Cardio.Study_truth.csv)__
+* __[Cardio Study_truth.csv](https://github.com/DIDSR/colorScaleStudyData/releases/download/v1.0.0/Cardio.Study_truth.csv)__
 
     + Each row corresponds to a case
 
     + From left to right each column corresponds to case number and truth. 1 is assigned to cases with lesion (positive cases) and 0 to cases without lesion (negative cases). 
 
-* __[CardioCTstudy_3mod_12obs_210cases_rawdata.csv](https://github.com/DIDSR/RDataPackages/releases/download/v0.0.0.9000/CardioCTstudy_3mod_12obs_210cases_rawdata.csv)__
+* __[CardioCTstudy_3mod_12obs_210cases_rawdata.csv](https://github.com/DIDSR/colorScaleStudyData/releases/download/v1.0.0/CardioCTstudy_3mod_12obs_210cases_rawdata.csv)__
 
     + Each row corresponds to an observation in the study (one reader assigns a confidence score to one case).
 
@@ -47,13 +47,13 @@ Data is divided in 4 files. Two files for the study with __Cardiac CT images__ a
 
 
 ### 2. Prostate MRI study
-* __[Prostate_Truth.csv](https://github.com/DIDSR/RDataPackages/releases/download/v0.0.0.9000/Prostate_Truth.csv)__
+* __[Prostate_Truth.csv](https://github.com/DIDSR/colorScaleStudyData/releases/download/v1.0.0/Prostate_Truth.csv)__
 
     + Each row corresponds to a case.
 
     + From left to right each column corresponds to case number and truth. 1 is assigned to cases with lesion (positive cases) and 0 to cases without lesion (negative cases). 
 
-* __[Prostate_5mod_9obs_165cases_wGSDFrawdata_Allreaders.csv](https://github.com/DIDSR/RDataPackages/releases/download/v0.0.0.9000/Prostate_5mod_9obs_165cases_wGSDFrawdata_Allreaders.csv)__
+* __[Prostate_5mod_9obs_165cases_wGSDFrawdata_Allreaders.csv](https://github.com/DIDSR/colorScaleStudyData/releases/download/v1.0.0/Prostate_5mod_9obs_165cases_wGSDFrawdata_Allreaders.csv)__
 
     + Each row corresponds to an observation in the study (one reader assigns a confidence score to one case).
     
